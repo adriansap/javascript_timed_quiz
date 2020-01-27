@@ -1,8 +1,11 @@
-
+//PSEUDOCODE: i want to create 3 buttons and a div for the question. each button has an answer. when a button is clicked
+//a variable is set to that position in the array of values, [0],[1] or [2]. the choice is then checked against the answer's value.
+//if the button clicked and the answer's value match then it is correct, otherwise it is incorrect. if correct score++,
+//otherwise score--. 
 
 var questions = [
     {
-        question: "Three foundational languages of web development are:",
+        "question": "Three foundational languages of web development are:",
         "choices": ["HTML and CSS", "HTML and Java", "HTML, CSS and JavaScript"],
         "answer": "HTML, CSS and JavaScript"
     },
@@ -11,27 +14,70 @@ var questions = [
         question: "DOM stands for:",
         choices: ["Favorite type of pizza", "Document Origin Margin", "Document Object Model"],
         answer: "Document Object Model"
-    }
+    },
 
+    {
+        question: "Bootstrap is made by:",
+        choices: ["Google", "Twitter", "Facebook"],
+        answer: "Twitter"
+
+    },
+
+    {
+        question: "A CDN stands for:",
+        choices: ["Character Domain Name", "Cartoon Delivery Network", "Content Delivery Network"],
+        answer: "Content Delivery Network"
+    },
+
+    {
+        question: "=== evaluates:",
+        choices: ["Value", "Value and Type", "Value, Type and Character "],
+        answer: "Value and Type"
+    }
 ];
 
+//variables
+
+var currentQuestion = 0; //initalized
+var choiceNumber = null; //initialized !!problem with this variable..
+
 //functions 
-function checkAnswer() {
-    if (questions[0].choices[0] == questions[0].answer) {
+function checkAnswer(choiceNumber) {
+
+    alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
+    if (questions[currentQuestion].choices[choiceNumber] == questions[currentQuestion].answer) {
         alert("correct!");
     }
     else { alert("incorrect!"); }
 }
+
+
 
 //should build a foor loop that goes through the objects in the array as answers are provided
 
 //question
 document.getElementById("main").textContent = (questions[0].question);
 //possible answers
-document.getElementById("btn1").innerText = (questions[0].choices[0]);
-document.getElementById("btn1").addEventListener("click", checkAnswer()); // to check against questions.answer
-document.getElementById("btn2").innerText = (questions[0].choices[1]);
-document.getElementById("btn3").innerText = (questions[0].choices[2]);
+document.getElementById("btn0").innerText = (questions[0].choices[0]);
+document.getElementById("btn0").addEventListener("click", () => {
+    var choiceNumber = 0;
+    checkAnswer(choiceNumber);
+    alert("choice number is: " + choiceNumber)
+});
+document.getElementById("btn1").innerText = (questions[0].choices[1]);
+document.getElementById("btn1").addEventListener("click", () => {
+    var choiceNumber = 1;
+    checkAnswer(choiceNumber);
+    alert("choice number is: " + choiceNumber)
+});
+document.getElementById("btn2").innerText = (questions[0].choices[2]);
+
+document.getElementById("btn2").addEventListener("click", () => {
+    var choiceNumber = 2;
+    checkAnswer(choiceNumber);
+    alert("choice number is: " + choiceNumber)
+});
+document.getElementById("btn2").addEventListener("click", checkAnswer);
 
 
 
