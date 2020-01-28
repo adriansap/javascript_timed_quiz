@@ -39,7 +39,7 @@ var questions = [
 //variables
 
 var currentQuestion = 0; //initalized
-var choiceNumber = null; //initialized !!problem with this variable..
+var choiceNumber = null; //initialized 
 
 //functions 
 function checkAnswer(choiceNumber) {
@@ -54,31 +54,32 @@ function checkAnswer(choiceNumber) {
 
 
 //should build a foor loop that goes through the objects in the array as answers are provided
+while (currentQuestion <= questions.length) {
+    //question
+    document.getElementById("main").textContent = (questions[currentQuestion].question);
 
-//question
-document.getElementById("main").textContent = (questions[0].question);
-//possible answers
-document.getElementById("btn0").innerText = (questions[0].choices[0]);
-document.getElementById("btn0").addEventListener("click", () => {
-    var choiceNumber = 0;
-    checkAnswer(choiceNumber);
-    alert("choice number is: " + choiceNumber)
-});
-document.getElementById("btn1").innerText = (questions[0].choices[1]);
-document.getElementById("btn1").addEventListener("click", () => {
-    var choiceNumber = 1;
-    checkAnswer(choiceNumber);
-    alert("choice number is: " + choiceNumber)
-});
-document.getElementById("btn2").innerText = (questions[0].choices[2]);
-
-document.getElementById("btn2").addEventListener("click", () => {
-    var choiceNumber = 2;
-    checkAnswer(choiceNumber);
-    alert("choice number is: " + choiceNumber)
-});
-document.getElementById("btn2").addEventListener("click", checkAnswer);
-
+    //possible answers
+    document.getElementById("btn0").innerText = (questions[currentQuestion].choices[0]);
+    document.getElementById("btn0").addEventListener("click", () => {
+        var choiceNumber = 0;
+        checkAnswer(choiceNumber);
+        alert("choice number is: " + choiceNumber)
+    });
+    document.getElementById("btn1").innerText = (questions[currentQuestion].choices[1]);
+    document.getElementById("btn1").addEventListener("click", () => {
+        var choiceNumber = 1;
+        checkAnswer(choiceNumber);
+        alert("choice number is: " + choiceNumber)
+    });
+    document.getElementById("btn2").innerText = (questions[currentQuestion].choices[2]);
+    document.getElementById("btn2").addEventListener("click", () => {
+        var choiceNumber = 2;
+        checkAnswer(choiceNumber);
+        alert("choice number is: " + choiceNumber)
+        currentQuestion++;
+    });
+    // document.getElementById("btn2").addEventListener("click", checkAnswer);
+}
 
 
 // timer
