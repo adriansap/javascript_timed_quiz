@@ -36,8 +36,8 @@ var questions = [
     },
     {
         "question": "If you run an eventListener method inside of a function, you may:",
-        "choices": ["Get free pizza", "Cause the evenListener to trigger it's associated function", "overload your RAM "],
-        "answer": "Cause the evenListener to trigger it's associated function"
+        "choices": ["Get free pizza", "Cause the eventListener to trigger it's associated function", "overload your RAM "],
+        "answer": "Cause the eventListener to trigger it's associated function"
     },
     {
         "question": "To use Jquery",
@@ -161,7 +161,7 @@ var secondsLeft = 120;
 function setTime() {
     var timerInterval = setInterval(function () {
         secondsLeft--;
-        timerEl.textContent = secondsLeft + " seconds left till colorsplosion.";
+        timerEl.textContent = secondsLeft + " seconds left.";
 
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
