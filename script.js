@@ -11,50 +11,67 @@ var questions = [
     },
 
     {
-        question: "DOM stands for:",
-        choices: ["Favorite type of pizza", "Document Origin Margin", "Document Object Model"],
-        answer: "Document Object Model"
+        "question": "DOM stands for:",
+        "choices": ["Favorite type of pizza", "Document Origin Margin", "Document Object Model"],
+        "answer": "Document Object Model"
     },
 
     {
-        question: "Bootstrap is made by:",
-        choices: ["Google", "Twitter", "Facebook"],
-        answer: "Twitter"
+        "question": "Bootstrap is made by:",
+        "choices": ["Google", "Twitter", "Facebook"],
+        "answer": "Twitter"
 
     },
 
     {
-        question: "A CDN stands for:",
-        choices: ["Character Domain Name", "Cartoon Delivery Network", "Content Delivery Network"],
-        answer: "Content Delivery Network"
+        "question": "A CDN stands for:",
+        "choices": ["Character Domain Name", "Cartoon Delivery Network", "Content Delivery Network"],
+        "answer": "Content Delivery Network"
     },
 
     {
-        question: "=== evaluates:",
-        choices: ["Value", "Value and Type", "Value, Type and Character "],
-        answer: "Value and Type"
+        "question": "=== evaluates:",
+        "choices": ["Value", "Value and Type", "Value, Type and Character "],
+        "answer": "Value and Type"
     }
 ];
 
 //variables
 
 var currentQuestion = 0; //initalized
-var choiceNumber = null; //initialized 
+var choiceNumber = 0; //initialized 
+var userScore = 0; //init
 
 //functions 
 function checkAnswer(choiceNumber) {
 
-    alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
+    // alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
     if (questions[currentQuestion].choices[choiceNumber] == questions[currentQuestion].answer) {
         alert("correct!");
+        document.getElementById("correct-or-not").textContent = "correct!";
+        userScore++;
+        updateScore(userScore);
+        currentQuestion++;
+
+        // var choiceNumber = 0; //reset for next question
     }
-    else { alert("incorrect!"); }
+    else if (questions[currentQuestion].choices[choiceNumber] != questions[currentQuestion].answer) {
+        alert("incorrect!");
+        document.getElementById("correct-or-not").textContent = "incorrect!";
+        userScore--;
+        updateScore(userScore);
+        currentQuestion++;
+
+        // var choiceNumber = 0; //reset for next question
+
+    }
 }
 
+function updateScore(userScore, currentQuestion) {
+    document.getElementById("user-score").textContent = userScore;
+}
 
-
-//should build a foor loop that goes through the objects in the array as answers are provided
-while (currentQuestion <= questions.length) {
+function QandA() {
     //question
     document.getElementById("main").textContent = (questions[currentQuestion].question);
 
@@ -63,23 +80,32 @@ while (currentQuestion <= questions.length) {
     document.getElementById("btn0").addEventListener("click", () => {
         var choiceNumber = 0;
         checkAnswer(choiceNumber);
-        alert("choice number is: " + choiceNumber)
+        alert("choice number is: " + choiceNumber);
+        // currentQuestion++;
+        QandA();
     });
     document.getElementById("btn1").innerText = (questions[currentQuestion].choices[1]);
     document.getElementById("btn1").addEventListener("click", () => {
         var choiceNumber = 1;
         checkAnswer(choiceNumber);
-        alert("choice number is: " + choiceNumber)
+        alert("choice number is: " + choiceNumber);
+        // currentQuestion++;
+        QandA();
     });
     document.getElementById("btn2").innerText = (questions[currentQuestion].choices[2]);
     document.getElementById("btn2").addEventListener("click", () => {
         var choiceNumber = 2;
         checkAnswer(choiceNumber);
-        alert("choice number is: " + choiceNumber)
-        currentQuestion++;
+        alert("choice number is: " + choiceNumber);
+        // currentQuestion++;
+        QandA();
     });
-    // document.getElementById("btn2").addEventListener("click", checkAnswer);
 }
+
+//begin quiz event listener
+document.getElementById("begin-quiz").addEventListener("click", QandA);
+
+
 
 
 // timer
