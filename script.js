@@ -35,19 +35,34 @@ var questions = [
         "answer": "Value and Type"
     },
     {
-        "question": "If you run an evenListener method inside of a function, you may:",
+        "question": "If you run an eventListener method inside of a function, you may:",
         "choices": ["Get free pizza", "Cause the evenListener to trigger it's associated function", "overload your RAM "],
-        "answer": "Value and Type"
+        "answer": "Cause the evenListener to trigger it's associated function"
     },
     {
         "question": "To use Jquery",
         "choices": ["You must have a good browser", "You must include it's script url in the head section", "You must have javascript"],
-        "answer": "Value and Type"
+        "answer": "You must include it's script url in the head section"
     },
     {
         "question": "To listen for a click with Jquery you type:",
         "choices": ["'$('#idname').on('click', function)'", "addEventListener('click', function)", "createElement('click', function)"],
-        "answer": "Value and Type"
+        "answer": "'$('#idname').on('click', function)'"
+    },
+    {
+        "question": "To generate a random number between 1 and 10:",
+        "choices": ["Math.floor(math.random()*10) +1", "Math.floor(math.random()*10)", "Math.floor(math.random()*11)"],
+        "answer": "Math.floor(math.random()*10) +1"
+    },
+    {
+        "question": "To add an HTML element via Javascript the last step includes:",
+        "choices": [".method", ".appendChild", ".addChild"],
+        "answer": ".appendChild"
+    },
+    {
+        "question": "All done!",
+        "choices": ["Thanks", "for", "playing!"],
+        "answer": "'$('#idname').on('click', function)'"
     },
 ];
 
@@ -61,8 +76,8 @@ var userScore = 0; //init
 function checkAnswer(choiceNumber) {
 
     if (questions[currentQuestion].choices[choiceNumber] == questions[currentQuestion].answer) {
-        alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
-        alert("correct!");
+        // alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
+        // alert("correct!");
         document.getElementById("correct-or-not").textContent = "correct!";
         userScore++;
         updateScore(userScore);
@@ -71,9 +86,9 @@ function checkAnswer(choiceNumber) {
         choiceNumber = 0; //reset for next question
     }
     else if (questions[currentQuestion].choices[choiceNumber] != questions[currentQuestion].answer) {
-        alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
+        // alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
 
-        alert("incorrect!");
+        // alert("incorrect!");
         document.getElementById("correct-or-not").textContent = "incorrect!";
         userScore--;
         updateScore(userScore);
@@ -81,6 +96,8 @@ function checkAnswer(choiceNumber) {
         console.log("question number: " + currentQuestion)
 
         choiceNumber = 0; //reset for next question
+        //penalize 
+        secondsLeft -= 5;
     }
 }
 
@@ -91,7 +108,7 @@ function updateScore(userScore, currentQuestion) {
 document.getElementById("btn0").addEventListener("click", () => {
     choiceNumber = 0;
     checkAnswer(choiceNumber);
-    alert("choice number is: " + choiceNumber);
+    // alert("choice number is: " + choiceNumber);
     currentQuestion++;
     QandA(currentQuestion);
 });
@@ -99,7 +116,7 @@ document.getElementById("btn0").addEventListener("click", () => {
 document.getElementById("btn1").addEventListener("click", () => {
     choiceNumber = 1;
     checkAnswer(choiceNumber);
-    alert("choice number is: " + choiceNumber);
+    // alert("choice number is: " + choiceNumber);
     currentQuestion++;
     QandA(currentQuestion);
 });
@@ -107,7 +124,7 @@ document.getElementById("btn1").addEventListener("click", () => {
 document.getElementById("btn2").addEventListener("click", () => {
     choiceNumber = 2;
     checkAnswer(choiceNumber);
-    alert("choice number is: " + choiceNumber);
+    // alert("choice number is: " + choiceNumber);
     currentQuestion++;
     QandA(currentQuestion);
 });
@@ -125,16 +142,21 @@ function QandA() {
 }
 
 //begin quiz event listener
-document.getElementById("begin-quiz").addEventListener("click", QandA);
+document.getElementById("begin-quiz").addEventListener("click", kickOff);
 
 
+//function kickOff()
 
+function kickOff() {
+    QandA();
+    setTime();
+}
 
 // timer
 
 var timerEl = document.getElementById("timer");
 
-var secondsLeft = 10;
+var secondsLeft = 120;
 
 function setTime() {
     var timerInterval = setInterval(function () {
