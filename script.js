@@ -33,7 +33,22 @@ var questions = [
         "question": "=== evaluates:",
         "choices": ["Value", "Value and Type", "Value, Type and Character "],
         "answer": "Value and Type"
-    }
+    },
+    {
+        "question": "If you run an evenListener method inside of a function, you may:",
+        "choices": ["Get free pizza", "Cause the evenListener to trigger it's associated function", "overload your RAM "],
+        "answer": "Value and Type"
+    },
+    {
+        "question": "To use Jquery",
+        "choices": ["You must have a good browser", "You must include it's script url in the head section", "You must have javascript"],
+        "answer": "Value and Type"
+    },
+    {
+        "question": "To listen for a click with Jquery you type:",
+        "choices": ["'$('#idname').on('click', function)'", "addEventListener('click', function)", "createElement('click', function)"],
+        "answer": "Value and Type"
+    },
 ];
 
 //variables
@@ -45,25 +60,27 @@ var userScore = 0; //init
 //functions 
 function checkAnswer(choiceNumber) {
 
-    // alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
     if (questions[currentQuestion].choices[choiceNumber] == questions[currentQuestion].answer) {
+        alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
         alert("correct!");
         document.getElementById("correct-or-not").textContent = "correct!";
         userScore++;
         updateScore(userScore);
-        currentQuestion++;
-
-        // var choiceNumber = 0; //reset for next question
+        // currentQuestion++;
+        console.log("question number: " + currentQuestion)
+        choiceNumber = 0; //reset for next question
     }
     else if (questions[currentQuestion].choices[choiceNumber] != questions[currentQuestion].answer) {
+        alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
+
         alert("incorrect!");
         document.getElementById("correct-or-not").textContent = "incorrect!";
         userScore--;
         updateScore(userScore);
-        currentQuestion++;
+        // currentQuestion++;
+        console.log("question number: " + currentQuestion)
 
-        // var choiceNumber = 0; //reset for next question
-
+        choiceNumber = 0; //reset for next question
     }
 }
 
@@ -71,35 +88,40 @@ function updateScore(userScore, currentQuestion) {
     document.getElementById("user-score").textContent = userScore;
 }
 
+document.getElementById("btn0").addEventListener("click", () => {
+    choiceNumber = 0;
+    checkAnswer(choiceNumber);
+    alert("choice number is: " + choiceNumber);
+    currentQuestion++;
+    QandA(currentQuestion);
+});
+
+document.getElementById("btn1").addEventListener("click", () => {
+    choiceNumber = 1;
+    checkAnswer(choiceNumber);
+    alert("choice number is: " + choiceNumber);
+    currentQuestion++;
+    QandA(currentQuestion);
+});
+
+document.getElementById("btn2").addEventListener("click", () => {
+    choiceNumber = 2;
+    checkAnswer(choiceNumber);
+    alert("choice number is: " + choiceNumber);
+    currentQuestion++;
+    QandA(currentQuestion);
+});
+
 function QandA() {
     //question
     document.getElementById("main").textContent = (questions[currentQuestion].question);
 
+
+
     //possible answers
     document.getElementById("btn0").innerText = (questions[currentQuestion].choices[0]);
-    document.getElementById("btn0").addEventListener("click", () => {
-        var choiceNumber = 0;
-        checkAnswer(choiceNumber);
-        alert("choice number is: " + choiceNumber);
-        // currentQuestion++;
-        QandA();
-    });
     document.getElementById("btn1").innerText = (questions[currentQuestion].choices[1]);
-    document.getElementById("btn1").addEventListener("click", () => {
-        var choiceNumber = 1;
-        checkAnswer(choiceNumber);
-        alert("choice number is: " + choiceNumber);
-        // currentQuestion++;
-        QandA();
-    });
     document.getElementById("btn2").innerText = (questions[currentQuestion].choices[2]);
-    document.getElementById("btn2").addEventListener("click", () => {
-        var choiceNumber = 2;
-        checkAnswer(choiceNumber);
-        alert("choice number is: " + choiceNumber);
-        // currentQuestion++;
-        QandA();
-    });
 }
 
 //begin quiz event listener
