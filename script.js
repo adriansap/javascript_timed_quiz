@@ -2,6 +2,12 @@
 //a variable is set to that position in the array of values, [0],[1] or [2]. the choice is then checked against the answer's value.
 //if the button clicked and the answer's value match then it is correct, otherwise it is incorrect. if correct score++,
 //otherwise score--. 
+function hideClearScores() {
+    document.getElementById("clear-scores").style.display = "none";
+    document.getElementById("start-again").style.display = "none";
+
+}
+hideClearScores();
 
 var questions = [
     {
@@ -71,10 +77,10 @@ var questions = [
 var currentQuestion = 0; //initalized
 var choiceNumber = 0; //initialized 
 var userScore = 0; //init
+var userInitials;
 
 //functions 
 function checkAnswer(choiceNumber) {
-
     if (questions[currentQuestion].choices[choiceNumber] == questions[currentQuestion].answer) {
         // alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
         // alert("correct!");
@@ -84,6 +90,8 @@ function checkAnswer(choiceNumber) {
         // currentQuestion++;
         console.log("question number: " + currentQuestion)
         choiceNumber = 0; //reset for next question
+        checkIfEnd();
+
     }
     else if (questions[currentQuestion].choices[choiceNumber] != questions[currentQuestion].answer) {
         // alert(questions[currentQuestion].choices[choiceNumber] + " " + questions[currentQuestion].answer); //test
@@ -98,9 +106,44 @@ function checkAnswer(choiceNumber) {
         choiceNumber = 0; //reset for next question
         //penalize 
         secondsLeft -= 5;
+        checkIfEnd();
+
+
+    }
+
+}
+
+function checkIfEnd() {
+    if (questions[currentQuestion].answer == ".appendChild") { //it's the end of the quiz
+        userInitials = prompt("Please type your initials");
+        document.getElementById("user-initials").innerHTML = userInitials + " " + userScore;
+        // secondsLeft = 0;
+        document.getElementById("btn0").style.display = "none";
+        document.getElementById("btn1").style.display = "none";
+        document.getElementById("btn2").style.display = "none";
+        document.getElementById("timer").style.display = "none";
+        document.getElementById("begin-quiz").style.display = "none";
+        document.getElementById("user-score").style.display = "none";
+        document.getElementById("correct-or-not").style.display = "none";
+
+
+        document.getElementById("userHigh").textContent = "High Scores:";
+        document.getElementById("userHigh").style.backgroundColor = "purple";
+        document.getElementById("userHigh").style.color = "white";
+        document.getElementById("clear-scores").style.display = "block"; //reveal clear scores button
+        document.getElementById("start-again").style.display = "block";
     }
 }
 
+//eventlistener for Clear Scores button and Start again button
+document.getElementById("clear-scores").addEventListener("click", clearTheScores);
+document.getElementById("start-again").addEventListener("click", kickOff);
+
+function clearTheScores() {
+    document.getElementById("user-initials").style.display = "none";
+
+
+}
 function updateScore(userScore, currentQuestion) {
     document.getElementById("user-score").textContent = userScore;
 }
@@ -133,8 +176,6 @@ function QandA() {
     //question
     document.getElementById("main").textContent = (questions[currentQuestion].question);
 
-
-
     //possible answers
     document.getElementById("btn0").innerText = (questions[currentQuestion].choices[0]);
     document.getElementById("btn1").innerText = (questions[currentQuestion].choices[1]);
@@ -150,6 +191,12 @@ document.getElementById("begin-quiz").addEventListener("click", kickOff);
 function kickOff() {
     QandA();
     setTime();
+    document.getElementById("begin-quiz").style.display = "none";
+    document.getElementById("btn0").style.display = "block";
+    document.getElementById("btn1").style.display = "block";
+    document.getElementById("btn2").style.display = "block";
+
+
 }
 
 // timer
@@ -165,9 +212,8 @@ function setTime() {
 
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
-            // sendMessage();
         }
 
     }, 1000); // the timer goes on indefinitely, that's why when secondsLeft == 0 then clearInterval(timerInterval);
-    //shuts the timer, and then, in this case, function sendMessage(); is executed.
+    //shuts the timer
 }
