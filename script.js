@@ -131,7 +131,7 @@ function checkIfEnd() {
         document.getElementById("userHigh").style.backgroundColor = "purple";
         document.getElementById("userHigh").style.color = "white";
         document.getElementById("clear-scores").style.display = "block"; //reveal clear scores button
-        document.getElementById("start-again").style.display = "block";
+        document.getElementById("start-again").style.display = "block"; //not working??
     }
 }
 
@@ -192,6 +192,7 @@ function kickOff() {
     QandA();
     setTime();
     document.getElementById("begin-quiz").style.display = "none";
+    document.getElementById("userHigh").style.display = "block";
     document.getElementById("btn0").style.display = "block";
     document.getElementById("btn1").style.display = "block";
     document.getElementById("btn2").style.display = "block";

@@ -17,3 +17,7 @@ font-size:30px;
 #clear-scores {
     position:fixed;
 }
+
+#userHigh {
+    display:none;
+}
