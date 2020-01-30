@@ -78,6 +78,7 @@ var currentQuestion = 0; //initalized
 var choiceNumber = 0; //initialized 
 var userScore = 0; //init
 var userInitials;
+var newHighScore;
 
 //functions 
 function checkAnswer(choiceNumber) {
@@ -106,6 +107,8 @@ function checkAnswer(choiceNumber) {
         choiceNumber = 0; //reset for next question
         //penalize 
         secondsLeft -= 5;
+
+
         checkIfEnd();
 
 
@@ -116,7 +119,22 @@ function checkAnswer(choiceNumber) {
 function checkIfEnd() {
     if (questions[currentQuestion].answer == ".appendChild") { //it's the end of the quiz
         userInitials = prompt("Please type your initials");
+        var uIArray = [];
+        uIArray.push(userInitials);
+        //handle high scores:
+        var objHighScore = {
+            username: uIArray,
+            score: userScore
+        }
+        objHighScore_serialized = JSON.stringify(objHighScore);
+
+        // newHighScore = newHighScore + "," + userInitials + ":" + userScore;
+        localStorage.setItem("highscores", objHighScore_serialized);
+        // localStorage.setItem("userScore", userScore);
+
         document.getElementById("user-initials").innerHTML = userInitials + " " + userScore;
+
+
         // secondsLeft = 0;
         document.getElementById("btn0").style.display = "none";
         document.getElementById("btn1").style.display = "none";
@@ -126,8 +144,8 @@ function checkIfEnd() {
         document.getElementById("user-score").style.display = "none";
         document.getElementById("correct-or-not").style.display = "none";
 
-
-        document.getElementById("userHigh").textContent = "High Scores:";
+        var localScore = localStorage.getItem(userScore);
+        document.getElementById("userHigh").textContent = localScore;
         document.getElementById("userHigh").style.backgroundColor = "purple";
         document.getElementById("userHigh").style.color = "white";
         document.getElementById("clear-scores").style.display = "block"; //reveal clear scores button
@@ -141,6 +159,7 @@ document.getElementById("start-again").addEventListener("click", kickOff);
 
 function clearTheScores() {
     document.getElementById("user-initials").style.display = "none";
+    localStorage.clear(); //clear  from local storage.
 
 
 }
